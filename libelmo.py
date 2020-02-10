@@ -1,7 +1,7 @@
-
-import tensorflow as tf
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_eager_execution()
 import tensorflow_hub as hub
-import matplotlib.pyplot as plt
 import numpy as np
 name='Elmo v2'
 module_url = "https://tfhub.dev/google/elmo/2" #@param ["https://tfhub.dev/google/universal-sentence-encoder/2", "https://tfhub.dev/google/universal-sentence-encoder-large/3"]

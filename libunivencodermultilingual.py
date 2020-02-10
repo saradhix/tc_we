@@ -1,10 +1,9 @@
-
 import tensorflow as tf
 import tensorflow_hub as hub
-import matplotlib.pyplot as plt
+import tensorflow_text
 import numpy as np
-name='Universal Encodings(Google)'
-module_url = "https://tfhub.dev/google/universal-sentence-encoder/4"
+name='Universal Encoder Multilingual(Google)'
+module_url = "https://tfhub.dev/google/universal-sentence-encoder-multilingual-large/3"
 
 # Import the Universal Sentence Encoder's TF Hub module
 embed = hub.KerasLayer(module_url)

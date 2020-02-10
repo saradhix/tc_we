@@ -5,7 +5,7 @@ from sklearn import linear_model
 import pickle
 name="Logistic Regression"
 def fit_predict(X_train, y_train, X_test, y_test, args={}):
-    clf = linear_model.LogisticRegression(C=1e5)
+    clf = linear_model.LogisticRegression(solver='sag')
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     #print( confusion_matrix(y_test, y_pred))
