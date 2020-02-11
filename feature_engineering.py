@@ -9,13 +9,13 @@ import time
 import logreg
 import rf
 import xgb
+import libspacy as spcy
 
 models = [logreg, rf, xgb]
 
 def main():
     data_dir = sys.argv[1]
     train_file = sys.argv[2]
-    num_features = int(sys.argv[3])
 
     #Open training file
     train_file = os.path.join(data_dir, train_file)
@@ -37,12 +37,11 @@ def main():
     y_all = y_train
     X_raw_train, X_raw_test, y_train, y_test = train_test_split(X_all, y_all, test_size=0.20, random_state=42)
 
-    vectorizer = TfidfVectorizer(sublinear_tf=True, max_df=0.5)
-    X_train = vectorizer.fit_transform(X_raw_train)
+    for sentence in X_raw_train:
+        adjs=spcy.get_adjs(sentence)
+        advs = spcy.get_advs(sentence)
+        print(adjs, advs)
 
-    ch2 = SelectKBest(chi2, k=num_features)
-    X_train = ch2.fit_transform(X_train, y_train)
-    feature_names =vectorizer.get_feature_names()
     feature_names = [feature_names[i] for i in ch2.get_support(indices=True)]
     for fname in feature_names:
         print(fname, occurance(fname, X_raw_train), occurance(fname, X_raw_test))

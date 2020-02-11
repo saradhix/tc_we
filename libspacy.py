@@ -6,12 +6,12 @@ nlp = spacy.load('en')
 #probs = [lex.prob for lex in nlp.vocab]
 #probs.sort()
 def get_parsed(sentence):
-  return nlp(sentence.decode('utf-8'))
+  return nlp(sentence)
 
 def get_nouns(sentence, parsed=None):
   nouns = set()
   if parsed is None:
-    parsed = nlp(sentence.decode('utf-8'))
+    parsed = nlp(sentence)
   for token in parsed:
     if token.pos == spacy.parts_of_speech.NOUN:
       nouns.add(token.string)
@@ -20,7 +20,7 @@ def get_nouns(sentence, parsed=None):
 def get_adjs(sentence,parsed=None):
   adjs = set()
   if parsed is None:
-    parsed = nlp(sentence.decode('utf-8'))
+    parsed = nlp(sentence)
   for token in parsed:
     if token.pos == spacy.parts_of_speech.ADJ:
       adjs.add(token.string)
@@ -29,7 +29,7 @@ def get_adjs(sentence,parsed=None):
 def get_advs(sentence, parsed=None):
   advs = set()
   if parsed is None:
-    parsed = nlp(sentence.decode('utf-8'))
+    parsed = nlp(sentence)
   for token in parsed:
     if token.pos == spacy.parts_of_speech.ADV:
       advs.add(token.string)
@@ -38,7 +38,7 @@ def get_advs(sentence, parsed=None):
 def get_verbs(sentence, parsed=None):
   verbs = set()
   if parsed is None:
-    parsed = nlp(sentence.decode('utf-8'))
+    parsed = nlp(sentence)
   for token in parsed:
     if token.pos == spacy.parts_of_speech.VERB:
       verbs.add(token.string)
@@ -46,7 +46,7 @@ def get_verbs(sentence, parsed=None):
 
 def get_nes(sentence, parsed=None):
   if parsed is None:
-    parsed = nlp(sentence.decode('utf-8'))
+    parsed = nlp(sentence)
   nes = [ i.label_ for i in parsed.ents]
   return nes
 
@@ -54,7 +54,7 @@ def get_nes(sentence, parsed=None):
 def get_pos_counts(sentence, parsed=None):
   pos_counts=[0 for i in range(4)]
   if parsed is None:
-    parsed = nlp(sentence.decode('utf-8'))
+    parsed = nlp(sentence)
   for token in parsed:
     if token.pos == spacy.parts_of_speech.NOUN:
       pos_counts[0] +=1
@@ -75,7 +75,7 @@ def get_pos_counts(sentence, parsed=None):
 def get_noun_verb_pos(sentence, parsed=None):
   ret=[]
   if parsed is None:
-    parsed = nlp(sentence.decode('utf-8'))
+    parsed = nlp(sentence)
   for token in parsed:
     if token.pos == spacy.parts_of_speech.NOUN:
       ret.append('N')
