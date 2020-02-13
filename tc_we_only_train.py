@@ -6,6 +6,7 @@ import rf
 import xgb
 import rbfsvm
 import logreg
+import knn
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 import time
@@ -33,7 +34,7 @@ embeddings = {'glove840':'libglove',
 
 #models = [logreg, neural_network10, linearsvm, rbfsvm, rf, xgb]
 models = [rf, xgb, rbfsvm]
-models = [logreg, rf]
+models = [ knn]
 #models = [rbfsvm]
 def main():
     data_dir = sys.argv[1]
