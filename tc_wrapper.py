@@ -9,12 +9,7 @@ import logreg
 import knn
 import counts
 from sklearn.model_selection import train_test_split
-from imblearn.over_sampling import SMOTE
 import time
-
-if sys.version_info[0] < 3:
-    reload(sys)
-    sys.setdefaultencoding('utf8')
 
 embeddings = {'glove840':'libglove',
         'elmo':'libelmo',
@@ -33,6 +28,7 @@ embeddings = {'glove840':'libglove',
         'spacy':'libspacy',
         'counts':'counts',
         'counts_wrapper':'counts_wrapper',
+        'char_counts_wrapper':'char_counts_wrapper',
         'tfidf':'tfidf'}
 
 #models = [logreg, neural_network10, linearsvm, rbfsvm, rf, xgb]
@@ -71,34 +67,13 @@ def main():
     X_all = X_raw_train
     y_all = y_train
     emb = __import__(embedding_module)
-    print("Generating features")
-    X_all = emb.get_vectors(X_all)
-    print("Shape of the dataset=", X_all.shape)
-    print(type(X_all))
-    X_train, X_test, y_train, y_test = train_test_split(X_all, y_all, test_size=0.20, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X_raw_train, y_train, test_size=0.20, random_state=42)
     print(len(X_train), len(y_train))
     print(len(X_test), len(y_test))
-    uniq_labels = sorted(list(set(y_train)))
-    print("Uniq labels=", uniq_labels)
-    y_train = np.array(y_train)
-    if oversample!=0:
-        counts = [sum(y_train==label) for label in uniq_labels]
-        print("Label counts before oversampling=", counts)
-        start = time.time()
-        sm = SMOTE(random_state=2)
-        X_train_res, y_train_res = sm.fit_sample(X_train, y_train.ravel())
-        end = time.time()
-        print("SMOTE finished in", end-start, "seconds")
-        counts = [sum(y_train_res==label) for label in uniq_labels]
-        print("Label counts after oversampling=", counts)
-    else:
-        X_train_res = X_train
-        y_train_res = y_train
-        
     for model in models:
         print("Running model", model.name)
         start = time.time()
-        model.fit_predict(X_train_res, y_train_res, X_test, y_test, model)
+        emb.fit_predict(X_train, y_train, X_test, y_test, model)
         end = time.time()
         print(model.name, "finished in", end-start, "seconds")
 

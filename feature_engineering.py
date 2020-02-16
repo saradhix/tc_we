@@ -36,13 +36,18 @@ def main():
     X_all = X_raw_train
     y_all = y_train
     X_raw_train, X_raw_test, y_train, y_test = train_test_split(X_all, y_all, test_size=0.20, random_state=42)
-
-    for sentence in X_raw_train:
+    ad_features=[]
+    for sentence in tqdm(X_raw_train):
         adjs=spcy.get_adjs(sentence)
         advs = spcy.get_advs(sentence)
-        print(adjs, advs)
+        for w in adjs:
+            ad_features.append(w.lower().strip())
+        for w in advs:
+            ad_features.append(w.lower().strip())
 
-    feature_names = [feature_names[i] for i in ch2.get_support(indices=True)]
+    feature_names = list(set(ad_features))
+
+    #feature_names = [feature_names[i] for i in ch2.get_support(indices=True)]
     for fname in feature_names:
         print(fname, occurance(fname, X_raw_train), occurance(fname, X_raw_test))
         pass
@@ -58,7 +63,7 @@ def main():
 
 
 def occurance(word, sentences):
-    return sum([s.lower().count(word) for s in sentences])
+    return sum([s.lower().count(word.lower()) for s in sentences])
 
 def feature_transform(X_train, feature_names):
     zero_count = 0
