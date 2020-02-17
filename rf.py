@@ -13,10 +13,12 @@ def fit_predict(X_train, y_train, X_test, y_test, args={}):
     y_pred = clf.predict(X_test)
     #print( confusion_matrix(y_test, y_pred))
     #print( classification_report(y_test, y_pred, digits=4))
-    print("Accuracy=", accuracy_score(y_test, y_pred), "F1=", f1_score(y_test, y_pred, average=None))
+    accuracy= accuracy_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred, average=None)
+    print("Accuracy=", accuracy, "F1=", f1)
     end = time()
     #print("Took", end-start, "seconds")
     #Dump the model
     pickle_file = 'rf_model.pickle'
     pickle.dump(clf, open(pickle_file,"wb"))
-    return y_pred
+    return (accuracy, f1)
