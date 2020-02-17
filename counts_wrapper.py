@@ -18,7 +18,7 @@ def fit_predict(X_raw_train, y_train, X_raw_test, y_test, clf):
             (acc,f1) = clf.fit_predict(X_train, y_train, X_test, y_test)
             if acc > max_acc:
                 max_acc=acc
-                best_args = default_args
+                best_args = default_args.copy()
                 print("No Error Current Max Accuracy=", max_acc)
 
     print("Final Max Accuracy=", max_acc)
