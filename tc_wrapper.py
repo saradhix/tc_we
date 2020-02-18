@@ -33,7 +33,7 @@ embeddings = {'glove840':'libglove',
 
 #models = [logreg, neural_network10, linearsvm, rbfsvm, rf, xgb]
 models = [rf, xgb, rbfsvm]
-models = [rf]
+models = [xgb]
 def main():
     data_dir = sys.argv[1]
     train_file = sys.argv[2]
