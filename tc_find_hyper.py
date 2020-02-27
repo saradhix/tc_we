@@ -55,8 +55,8 @@ def find_best_params(X_train, y_train, X_test, y_test, wid, num_workers):
     char_max_features_end = 60000
     char_max_features_step = 1000
     lowercase=True
-    word_ngram_range=[(1,1),(1,2),(1,3),(1,4),(1,5),(1,6)]
-    char_ngram_range=[(2,3),(2,4),(2,5),(2,6),(2,7),(3,3),(3,4),(3,5),(3,6),(4,4),(4,5),(4,6),(5,6)]
+    word_ngram_range=[(1,1),(1,2)]
+    char_ngram_range=[(2,3),(2,4),(2,5),(2,6),(3,3),(3,4),(3,5),(3,6),(4,4),(4,5),(4,6),(5,6)]
     word_max_feature_list = list(range(word_max_features_start, word_max_features_end+1,word_max_features_step))
     char_max_feature_list = list(range(char_max_features_start, char_max_features_end+1, char_max_features_step))
 
